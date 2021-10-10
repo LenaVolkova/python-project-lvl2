@@ -1,0 +1,27 @@
+name: Linter Check
+on: [push]
+jobs:
+  linter-check1:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          pip install poetry
+          make install
+          make lint
+  linter-check2:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.9
+      - run: |
+          pip install poetry
+          make install
+          make lint
