@@ -17,7 +17,7 @@ lint:
 	poetry run flake8 gendiff
 
 gendiff:
-	poetry run gendiff
+	poetry run gendiff -h
 
 test:
 	poetry run pytest
