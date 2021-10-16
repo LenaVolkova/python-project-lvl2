@@ -9,8 +9,6 @@
 
 <a href="https://codeclimate.com/github/LenaVolkova/python-project-lvl2/test_coverage"><img src="https://api.codeclimate.com/v1/badges/32e1c78a48bc3c1fd102/test_coverage" /></a>
 
-Gendiff can compare two JSON-files<br>
-<a href="https://asciinema.org/a/0FHGDG4as4uj645EJRO3vx5Cf" target="_blank"><img src="https://asciinema.org/a/0FHGDG4as4uj645EJRO3vx5Cf.svg" /></a>
+Gendiff can compares two JSON or YAML files:<br>
 
-Gendiff can compare two YAML-files<br>
-<a href="https://asciinema.org/a/83yfGWRSd2bTFqk3wafMYcn80" target="_blank"><img src="https://asciinema.org/a/83yfGWRSd2bTFqk3wafMYcn80.svg" /></a>
+[![asciicast](https://asciinema.org/a/NRudPg6s8uO0yIpw1dxyfgXqY.svg)](https://asciinema.org/a/NRudPg6s8uO0yIpw1dxyfgXqY)
