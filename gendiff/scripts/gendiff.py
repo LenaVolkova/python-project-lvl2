@@ -1,26 +1,22 @@
 #!/usr/bin/env python
 
 
-import sys
 import argparse
-from gendiff.scripts.process_json import process_json
-from gendiff.scripts.process_yaml import process_yaml
+from gendiff.scripts.process_file import parse
+from gendiff.scripts.formatting import plain, stylish
 
 
-def generate_diff(filepath1, filepath2):
+def generate_diff(filepath1, filepath2, format_name):
     data1 = {}
     data2 = {}
-
-    if filepath1[-5:] == '.json':
-        data1 = process_json(filepath1)
-        data2 = process_json(filepath2)
-    if filepath1[-5:] == '.yaml' or filepath1[-4:] == '.yml':
-        data1 = process_yaml(filepath1)
-        data2 = process_yaml(filepath2)
-
+    data1 = parse(filepath1)
+    data2 = parse(filepath2)
     diff = get_diff(data1, data2)
-
-    return diff
+    if format_name == 'json' or format_name == 'JSON':
+        return stylish(diff)
+    if format_name == 'plain':
+        return plain(diff)
+    return "format_name must be json or plain"
 
 
 def get_diff(dict1, dict2):
@@ -39,50 +35,23 @@ def get_diff(dict1, dict2):
     for k in keys:
         if k in dict1 and k in dict2:
             if dict1[k] == dict2[k]:
-                diff.append(('0', k, dict1[k], get_diff(dict1[k], dict2[k])))
+                diff.append(('both_equal', k, dict1[k], get_diff(dict1[k], dict2[k])))
             else:
                 if isinstance(dict1[k], dict) and isinstance(dict2[k], dict):
-                    diff.append(('0', k, dict1[k], get_diff(dict1[k], dict2[k])))
+                    diff.append(('both_not_equal', k, dict1[k], get_diff(dict1[k], dict2[k])))
                 else:
                     if not isinstance(dict1[k], dict):
-                        diff.append(('1', k, dict1[k], []))
-                        diff.append(('2', k, dict2[k], get_diff({}, dict2[k])))
+                        diff.append(('in_first', k, dict1[k], []))
+                        diff.append(('in_second', k, dict2[k], get_diff({}, dict2[k])))
                     elif not isinstance(dict2[k], dict):
-                        diff.append(('1', k, dict1[k], get_diff(dict1[k], {})))
-                        diff.append(('2', k, dict2[k], []))
+                        diff.append(('in_first', k, dict1[k], get_diff(dict1[k], {})))
+                        diff.append(('in_second', k, dict2[k], []))
         if k in dict1 and k not in dict2:
-            diff.append(('1', k, dict1[k], get_diff(dict1[k], {})))
+            diff.append(('only_in_first', k, dict1[k], get_diff(dict1[k], {})))
         if k not in dict1 and k in dict2:
-            diff.append(('2', k, dict2[k], get_diff({}, dict2[k])))
+            diff.append(('only_in_second', k, dict2[k], get_diff({}, dict2[k])))
 
     return diff
-
-
-def stylish(diff, symbol='    '):
-    flags = {"0": "    ", "1": "  - ", "2": "  + "}
-
-    def formatter(diff, symbol, result='{', level=0, print_flags=True, check_level=0):
-        for item in diff:
-            if print_flags:
-                flag = flags[str(item[0])]
-            else:
-                flag = flags["0"]
-            if item[3] == []:
-                result += '\n{}{}{}: {}'.format(
-                    symbol * level, flag, str(item[1]), str(item[2]))
-            else:
-                result += '\n{}{}{}: {}'.format(
-                    symbol * level, flag, str(item[1]), "{")
-                if (str(item[0]) == '1' or str(item[0]) == '2') and print_flags:
-                    print_flags = False
-                    check_level = level
-                line = '\n' + symbol * (level + 1) + '}'
-                result = formatter(
-                    item[3], symbol, result, level + 1, print_flags, check_level) + line
-                if level <= check_level:
-                    print_flags = True
-        return result
-    return formatter(diff, symbol) + '\n}'
 
 
 def main():
@@ -102,8 +71,8 @@ def main():
     parser.add_argument('-f', '--format', help='plain or JSON')
     args = parser.parse_args()
     print(args)
-    diff = generate_diff(sys.argv[1], sys.argv[2])
-    print(stylish(diff))
+    diff = generate_diff(args.first_file[0], args.second_file[0], args.format)
+    print(diff)
 
 
 if __name__ == '__main__':
