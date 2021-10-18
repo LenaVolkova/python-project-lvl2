@@ -1,3 +1,6 @@
+import json
+
+
 def plain(diff, result='', path=[]):
 
     def correct_value(val):
@@ -23,7 +26,8 @@ def plain(diff, result='', path=[]):
                 value_to = '[complex value]'
             path.append(item[1])
             key_path = '.'.join([str(k) for k in path])
-            result += "Property '{}' was updated. From {} to {}\n".format(key_path, value_from, value_to)
+            result += "Property '{}' was updated. From {} to {}\n".format(
+                key_path, value_from, value_to)
             path.pop()
         if item[0] == "only_in_first":
             path.append(item[1])
@@ -80,3 +84,26 @@ def stylish(diff, symbol='    '):
                     print_flags = True
         return result
     return formatter(diff, symbol) + '\n}'
+
+
+def json_format(dif):
+
+    def make_dict(diff):
+        d = {}
+        for item in diff:
+            if item[0] == "both_equal":
+                d[item[1]] = item[2]
+            if item[0] == "only_in_first":
+                d[item[1]] = ["diff", item[2], None]
+            if item[0] == "only_in_second":
+                d[item[1]] = ["diff", None, item[2]]
+            if item[0] == "both_not_equal":
+                d[item[1]] = make_dict(item[3])
+            if item[0] == "in_first":
+                d[item[1]] = ["diff", item[2]]
+            if item[0] == "in_second":
+                d[item[1]].append(item[2])
+        return d
+    dictionary = make_dict(dif)
+    result = json.dumps(dictionary, indent=4)
+    return result

@@ -1,0 +1,84 @@
+{
+    "common": {
+        "follow": [
+            "diff",
+            null,
+            false
+        ],
+        "setting1": "Value 1",
+        "setting2": [
+            "diff",
+            200,
+            null
+        ],
+        "setting3": [
+            "diff",
+            true,
+            null
+        ],
+        "setting4": [
+            "diff",
+            null,
+            "blah blah"
+        ],
+        "setting5": [
+            "diff",
+            null,
+            {
+                "key5": "value5"
+            }
+        ],
+        "setting6": {
+            "doge": {
+                "wow": [
+                    "diff",
+                    "",
+                    "so much"
+                ]
+            },
+            "key": "value",
+            "ops": [
+                "diff",
+                null,
+                "vops"
+            ]
+        }
+    },
+    "group1": {
+        "baz": [
+            "diff",
+            "bas",
+            "bars"
+        ],
+        "foo": "bar",
+        "nest": [
+            "diff",
+            {
+                "key": "value"
+            },
+            "str"
+        ]
+    },
+    "group2": [
+        "diff",
+        {
+            "abc": 12345,
+            "deep": {
+                "id": 45
+            }
+        },
+        null
+    ],
+    "group3": [
+        "diff",
+        null,
+        {
+            "deep": {
+                "id": {
+                    "number": 45
+                }
+            },
+            "fee": 100500
+        }
+    ]
+}

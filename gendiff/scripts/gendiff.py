@@ -3,20 +3,20 @@
 
 import argparse
 from gendiff.scripts.process_file import parse
-from gendiff.scripts.formatting import plain, stylish
+from gendiff.scripts.formatting import plain, stylish, json_format
 
 
-def generate_diff(filepath1, filepath2, format_name):
+def generate_diff(filepath1, filepath2, format_name=''):
     data1 = {}
     data2 = {}
     data1 = parse(filepath1)
     data2 = parse(filepath2)
     diff = get_diff(data1, data2)
-    if format_name == 'json' or format_name == 'JSON':
-        return stylish(diff)
+    if format_name == 'JSON':
+        return json_format(diff)
     if format_name == 'plain':
         return plain(diff)
-    return "format_name must be json or plain"
+    return stylish(diff)
 
 
 def get_diff(dict1, dict2):
