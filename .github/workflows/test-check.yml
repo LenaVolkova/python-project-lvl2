@@ -1,7 +1,7 @@
 name: Testing
 on: [push]
 jobs:
-  linter-check1:
+  test-check1:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
@@ -13,7 +13,7 @@ jobs:
           pip install poetry
           make install
           make test
-  linter-check2:
+  test-check2:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -25,3 +25,10 @@ jobs:
           pip install poetry
           make install
           make test
+      - name: Test & publish code coverage
+      uses: paambaati/codeclimate-action@v2.7.4
+      env:
+        CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+      with:
+        coverageCommand: make test-coverage
+        debug: true
