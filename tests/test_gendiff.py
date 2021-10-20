@@ -1,4 +1,3 @@
-import pytest
 from gendiff.scripts.gendiff import generate_diff
 
 
@@ -32,25 +31,30 @@ def test_generate_diff_for_json():
     filepath2 = "./tests/fixtures/filepath2.json"
     assert generate_diff(filepath1, filepath2) == structured_diff_string
 
+
 def test_generate_diff_for_yaml():
     filepath1 = "./tests/fixtures/filepath1.yml"
     filepath2 = "./tests/fixtures/filepath2.yml"
     assert generate_diff(filepath1, filepath2) == structured_diff_string
+
 
 def test_generate_plain_diff_for_json():
     filepath1 = "./tests/fixtures/filepath1.json"
     filepath2 = "./tests/fixtures/filepath2.json"
     assert generate_diff(filepath1, filepath2, 'plain') == plain_diff_string
 
+
 def test_generate_plain_diff_for_yaml():
     filepath1 = "./tests/fixtures/filepath1.yml"
     filepath2 = "./tests/fixtures/filepath2.yml"
     assert generate_diff(filepath1, filepath2, 'plain') == plain_diff_string
 
+
 def test_generate_json_diff_for_json():
     filepath1 = "./tests/fixtures/filepath1.json"
     filepath2 = "./tests/fixtures/filepath2.json"
     assert generate_diff(filepath1, filepath2, 'JSON') == json_diff_string
+
 
 def test_generate_json_diff_for_yaml():
     filepath1 = "./tests/fixtures/filepath1.yml"
