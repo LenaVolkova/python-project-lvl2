@@ -70,7 +70,7 @@ def main():
                         help='Second file to compare')
     parser.add_argument('-f', '--format', help='plain or JSON')
     args = parser.parse_args()
-    print(args)
+    # print(args)
     diff = generate_diff(args.first_file[0], args.second_file[0], args.format)
     print(diff)
 
