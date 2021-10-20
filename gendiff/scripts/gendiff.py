@@ -12,7 +12,7 @@ def generate_diff(filepath1, filepath2, format_name=''):
     data1 = parse(filepath1)
     data2 = parse(filepath2)
     diff = get_diff(data1, data2)
-    if format_name == 'JSON':
+    if format_name == 'JSON' or format_name == 'json':
         return json_format(diff)
     if format_name == 'plain':
         return plain(diff)
