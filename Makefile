@@ -23,6 +23,6 @@ test:
 	poetry run pytest
 
 test-coverage:
-	poetry run pytest --cov=python-project-lvl2 --cov-report xml
+	poetry run pytest --cov=./gendiff/scripts --cov-report xml
 
 .PHONY: gendiff
