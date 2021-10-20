@@ -1,7 +1,7 @@
 import json
 
 
-def plain(diff, result='', path=[]):
+def plain(diff):
 
     def correct_value(val):
         correction = {"True": "true", "False": "false", "None": "null"}
@@ -11,42 +11,46 @@ def plain(diff, result='', path=[]):
             return str(val)
         return "'" + str(val) + "'"
 
-    for item in diff:
-        if item[0] == "both_not_equal":
-            path.append(item[1])
-            result = plain(item[3], result, path)
-            path.pop()
-        if item[0] == "in_first":
-            if item[3] == []:
-                value_from = correct_value(item[2])
-            else:
-                value_from = '[complex value]'
-        if item[0] == "in_second":
-            if item[3] == []:
-                value_to = correct_value(item[2])
-            else:
-                value_to = '[complex value]'
-            path.append(item[1])
-            key_path = '.'.join([str(k) for k in path])
-            result += "Property '{}' was updated. From {} to {}\n".format(
-                key_path, value_from, value_to)
-            path.pop()
-        if item[0] == "only_in_first":
-            path.append(item[1])
-            key_path = '.'.join([str(k) for k in path])
-            result += "Property '{}' was removed\n".format(key_path)
-            path.pop()
-        if item[0] == "only_in_second":
-            path.append(item[1])
-            key_path = '.'.join([str(k) for k in path])
-            if item[3] == []:
-                added_value = correct_value(item[2])
-            else:
-                added_value = '[complex value]'
-            result += "Property '{}' was added with value: {}\n".format(key_path, added_value)
-            path.pop()
+    def make_plain_strings(diff, result=[], path=[]):
+        for item in diff:
+            if item[0] == "both_not_equal":
+                path.append(item[1])
+                result = make_plain_strings(item[3], result, path)
+                path.pop()
+            if item[0] == "in_first":
+                if item[3] == []:
+                    value_from = correct_value(item[2])
+                else:
+                    value_from = '[complex value]'
+            if item[0] == "in_second":
+                if item[3] == []:
+                    value_to = correct_value(item[2])
+                else:
+                    value_to = '[complex value]'
+                path.append(item[1])
+                key_path = '.'.join([str(k) for k in path])
+                line = "Property '{}' was updated. From {} to {}".format(key_path, value_from, value_to)
+                result.append(line)
+                path.pop()
+            if item[0] == "only_in_first":
+                path.append(item[1])
+                key_path = '.'.join([str(k) for k in path])
+                line = "Property '{}' was removed".format(key_path)
+                result.append(line)
+                path.pop()
+            if item[0] == "only_in_second":
+                path.append(item[1])
+                key_path = '.'.join([str(k) for k in path])
+                if item[3] == []:
+                    added_value = correct_value(item[2])
+                else:
+                    added_value = '[complex value]'
+                line = "Property '{}' was added with value: {}".format(key_path, added_value)
+                result.append(line)
+                path.pop()
+        return result
 
-    return result
+    return '\n'.join(make_plain_strings(diff))
 
 
 def stylish(diff, symbol='    '):
