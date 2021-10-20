@@ -7,6 +7,8 @@ def plain(diff, result='', path=[]):
         correction = {"True": "true", "False": "false", "None": "null"}
         if str(val) in correction:
             return correction[str(val)]
+        if isinstance(val, int):
+            return str(val)
         return "'" + str(val) + "'"
 
     for item in diff:
