@@ -1,4 +1,4 @@
-name: Linter Check
+name: Linter and Test Check
 on: [push]
 jobs:
   linter-test-check:
