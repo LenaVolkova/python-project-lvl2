@@ -1,19 +1,7 @@
-name: Testing
+name: Linter Check
 on: [push]
 jobs:
-  test-check1:
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.9
-      - run: |
-          pip install poetry
-          make install
-          make test
-  test-check2:
+  linter-test-check:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -24,11 +12,12 @@ jobs:
       - run: |
           pip install poetry
           make install
+          make lint
           make test
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v2.7.4
         env:
-          CC_TEST_REPORTER_ID: 'f33e226d7798e68a1383850fb5362a80404773e5483e28382e4c7671d7ea723e'
+          CC_TEST_REPORTER_ID: ${{ secrets.TEST_COVERAGE }}
         with:
           coverageCommand: make test-coverage
           debug: true
