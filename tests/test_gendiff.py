@@ -37,11 +37,12 @@ def test_generate_diff_stylish(file1, file2, expected):
 def test_generate_diff_json_plain(file1, file2, format, expected):
     assert generate_diff(file1, file2, format) == expected
 
+
 def test_generate_diff_json():
     def test_json(json_string):
-        try:    
+        try:
             json.loads(json_string)
-        except ValueError as e:
+        except ValueError:
             return False
         return True
     j_string1 = generate_diff("./tests/fixtures/filepath1.json", "./tests/fixtures/filepath1.json", 'JSON')
