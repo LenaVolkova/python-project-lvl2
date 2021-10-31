@@ -41,7 +41,7 @@ def make_stylish(diff, res=["{"], lev=0, symbol='    '):
                     res.append("{}{}{}: {}".format(symbol * lev, "  - ", k, correct_value(diff[k]["value1"])))
                 if isinstance(diff[k]["value2"], dict):
                     res.append("{}{}{}: {}".format(symbol * lev, "  + ", k, "{"))
-                    make_strings(diff[k]["value"], res, lev + 1, symbol)
+                    make_strings(diff[k]["value2"], res, lev + 1, symbol)
                     res.append("{}{}".format(symbol * (lev + 1), "}"))
                 else:
                     res.append("{}{}{}: {}".format(symbol * lev, "  + ", k, correct_value(diff[k]["value2"])))
