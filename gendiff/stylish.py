@@ -3,7 +3,7 @@ from gendiff.common import DIFF_FLAGS
 
 def correct_value(data):
     correction = {"True": "true", "False": "false", "None": "null"}
-    if (data == True) or (data == False) or (data == None):
+    if (data is True) or (data is False) or (data is None):
         return correction[str(data)]
     return str(data)
 
