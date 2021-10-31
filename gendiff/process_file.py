@@ -1,12 +1,15 @@
 import json
 import yaml
+import os
 
 
 def parse(filepath):
-    if filepath[-5:] == '.json':
+    _, file_extension = os.path.splitext(filepath)
+    if file_extension.lower() == '.json':
         return process_json(filepath)
-    if filepath[-5:] == '.yaml' or filepath[-4:] == '.yml':
+    if file_extension.lower() == '.yaml' or file_extension.lower() == '.yml':
         return process_yaml(filepath)
+    return {}
 
 
 def process_json(filepath):

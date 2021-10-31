@@ -10,9 +10,8 @@
 Gendiff compares two JSON or YAML files (first_file and second_file).<br>
 usage: gendiff [-h] [-f FORMAT] first_file second_file<br>
 optional arguments: <br>
-  -h, --help            show help message and exit<br>
-  -f FORMAT, --format FORMAT<br>
-                        set format of output<br>
+  <b>-h, --help</b> show help message and exit<br>
+  <b>-f FORMAT, --format FORMAT</b> set format of output<br>
 <br>
 Difference between files can be printed in several ways.<br>
 1. Structured view (by default)<br>

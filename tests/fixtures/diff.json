@@ -1,77 +1,70 @@
 {
     "common": {
-        "follow": [
-            "diff",
-            null,
-            false
-        ],
         "setting1": "Value 1",
-        "setting2": [
-            "diff",
-            200,
-            null
-        ],
-        "setting3": [
-            "diff",
-            true,
-            null
-        ],
-        "setting4": [
-            "diff",
-            null,
-            "blah blah"
-        ],
-        "setting5": [
-            "diff",
-            null,
-            {
-                "key5": "value5"
-            }
-        ],
         "setting6": {
             "doge": {
                 "wow": [
-                    "diff",
+                    "NOT_EQUAL",
                     "",
                     "so much"
                 ]
             },
             "key": "value",
             "ops": [
-                "diff",
-                null,
+                "ONLY_SECOND",
                 "vops"
             ]
-        }
+        },
+        "setting3": [
+            "NOT_EQUAL",
+            true,
+            null
+        ],
+        "setting2": [
+            "ONLY_FIRST",
+            200
+        ],
+        "follow": [
+            "ONLY_SECOND",
+            false
+        ],
+        "setting4": [
+            "ONLY_SECOND",
+            "blah blah"
+        ],
+        "setting5": [
+            "ONLY_SECOND",
+            {
+                "key5": "value5"
+            }
+        ]
     },
     "group1": {
         "baz": [
-            "diff",
+            "NOT_EQUAL",
             "bas",
             "bars"
         ],
-        "foo": "bar",
         "nest": [
-            "diff",
+            "NOT_EQUAL",
             {
                 "key": "value"
             },
             "str"
-        ]
+        ],
+        "foo": "bar"
     },
     "group2": [
-        "diff",
+        "ONLY_FIRST",
         {
             "abc": 12345,
             "deep": {
                 "id": 45
             }
-        },
-        null
+        }
     ],
     "group3": [
-        "diff",
-        null,
+        "ONLY_SECOND",
         {
             "deep": {
                 "id": {
