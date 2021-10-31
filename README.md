@@ -21,5 +21,5 @@ Difference between files can be printed in several ways.<br>
 [![asciicast](https://asciinema.org/a/Fpl1OXy7qd6lZOFIwI4mVbwUi.svg)](https://asciinema.org/a/Fpl1OXy7qd6lZOFIwI4mVbwUi)
 
 3. JSON-format (--format: JSON)<br>
-[![asciicast](https://asciinema.org/a/8AJcve8Qt9xzGTNqAQ01FM7fh.svg)](https://asciinema.org/a/8AJcve8Qt9xzGTNqAQ01FM7fh)
+[![asciicast](https://asciinema.org/a/3wOu3WamHgJC9ciASzMyRstF0.svg)](https://asciinema.org/a/3wOu3WamHgJC9ciASzMyRstF0)
 

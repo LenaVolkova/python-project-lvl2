@@ -7,6 +7,8 @@ def correct_value(data):
         return correction[str(data)]
     if isinstance(data, dict):
         return "[complex value]"
+    if isinstance(data, int) or isinstance(data, float):
+        return str(data)
     return "'" + str(data) + "'"
 
 
@@ -28,7 +30,7 @@ def make_plain(dif, res, path):
             if "value" not in dif[k]:
                 path_text = '.'.join(path)
                 res.append("Property '{}' was updated. From {} to {}".format(
-                        path_text, correct_value(dif[k]["value1"]), correct_value(dif[k]["value2"])))
+                    path_text, correct_value(dif[k]["value1"]), correct_value(dif[k]["value2"])))
                 path.pop()
             else:
                 make_plain(dif[k]["value"], res, path)
