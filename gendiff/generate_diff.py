@@ -7,7 +7,7 @@ from gendiff.common import DIFF_FLAGS
 FORMATTER = {"json": json_format, "plain": plain, "stylish": stylish}
 
 
-def generate_diff(filepath1, filepath2, format_name):
+def generate_diff(filepath1, filepath2, format_name=''):
     data1 = {}
     data2 = {}
     data1 = parse(filepath1)
