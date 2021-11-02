@@ -11,7 +11,8 @@ def main():
                         help='First file to compare')
     parser.add_argument('second_file', metavar='second_file', type=str, nargs=1,
                         help='Second file to compare')
-    parser.add_argument('-f', '--format', help='plain or JSON')
+    parser.add_argument('-f', '--format', choices=['json', 'plain', 'stylish'],
+                        help='set format of output', default='stylish')
     args = parser.parse_args()
     diff = generate_diff(args.first_file[0], args.second_file[0], args.format)
     print(diff)

@@ -14,7 +14,7 @@ optional arguments: <br>
   <b>-f FORMAT, --format FORMAT</b> set format of output<br>
 <br>
 Difference between files can be printed in several ways.<br>
-1. Structured view (by default)<br>
+1. Structured "stylish" view (by default)<br>
 [![asciicast](https://asciinema.org/a/1bc6R82dFQ3OTowcQ7qarmzcM.svg)](https://asciinema.org/a/1bc6R82dFQ3OTowcQ7qarmzcM)
 
 2. Plain view (--format: plain)<br>
