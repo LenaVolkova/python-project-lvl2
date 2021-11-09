@@ -3,42 +3,34 @@ import json
 from gendiff.generate_diff import generate_diff
 
 
-with open("./tests/fixtures/simple_diff", "r") as file_diff:
-    lines1 = file_diff.readlines()
-diff_string = ''.join([line for line in lines1])
-
-with open("./tests/fixtures/structured_diff", "r") as file1_diff:
-    lines2 = file1_diff.readlines()
-structured_diff_string = ''.join([line for line in lines2])
-
-with open("./tests/fixtures/plain_diff", "r") as file2_diff:
-    lines3 = file2_diff.readlines()
-plain_diff_string = ''.join([line for line in lines3])
-
 testdata_stylish = [
-    ("./tests/fixtures/file1.json", "./tests/fixtures/file2.json", diff_string),
-    ("./tests/fixtures/file1.yaml", "./tests/fixtures/file2.yaml", diff_string),
-    ("./tests/fixtures/filepath1.json", "./tests/fixtures/filepath2.json", structured_diff_string),
-    ("./tests/fixtures/filepath1.yml", "./tests/fixtures/filepath2.yml", structured_diff_string),
+    ("./tests/fixtures/file1.json", "./tests/fixtures/file2.json", "./tests/fixtures/simple_diff"),
+    ("./tests/fixtures/file1.yaml", "./tests/fixtures/file2.yaml", "./tests/fixtures/simple_diff"),
+    ("./tests/fixtures/filepath1.json", "./tests/fixtures/filepath2.json", "./tests/fixtures/structured_diff"),
+    ("./tests/fixtures/filepath1.yml", "./tests/fixtures/filepath2.yml", "./tests/fixtures/structured_diff"),
 ]
 
 testdata_stylish_plain = [
-    ("./tests/fixtures/file1.json", "./tests/fixtures/file2.json", "stylish", diff_string),
-    ("./tests/fixtures/file1.yaml", "./tests/fixtures/file2.yaml", "stylish", diff_string),
-    ("./tests/fixtures/filepath1.json", "./tests/fixtures/filepath2.json", "stylish", structured_diff_string),
-    ("./tests/fixtures/filepath1.yml", "./tests/fixtures/filepath2.yml", "stylish", structured_diff_string),
-    ("./tests/fixtures/filepath1.json", "./tests/fixtures/filepath2.json", 'plain', plain_diff_string),
-    ("./tests/fixtures/filepath1.yml", "./tests/fixtures/filepath2.yml", 'plain', plain_diff_string),
+    ("./tests/fixtures/file1.json", "./tests/fixtures/file2.json", "stylish", "./tests/fixtures/simple_diff"),
+    ("./tests/fixtures/file1.yaml", "./tests/fixtures/file2.yaml", "stylish", "./tests/fixtures/simple_diff"),
+    ("./tests/fixtures/filepath1.json", "./tests/fixtures/filepath2.json", "stylish", "./tests/fixtures/structured_diff"),
+    ("./tests/fixtures/filepath1.yml", "./tests/fixtures/filepath2.yml", "stylish", "./tests/fixtures/structured_diff"),
+    ("./tests/fixtures/filepath1.json", "./tests/fixtures/filepath2.json", 'plain', "./tests/fixtures/plain_diff"),
+    ("./tests/fixtures/filepath1.yml", "./tests/fixtures/filepath2.yml", 'plain', "./tests/fixtures/plain_diff"),
 ]
 
 
-@pytest.mark.parametrize("file1,file2,expected", testdata_stylish)
-def test_generate_diff_stylish(file1, file2, expected):
+@pytest.mark.parametrize("file1,file2,filename", testdata_stylish)
+def test_generate_diff_stylish(file1, file2, filename):
+    with open(filename, "r") as file_diff:
+        expected = file_diff.read()
     assert generate_diff(file1, file2) == expected
 
 
-@pytest.mark.parametrize("file1,file2,format,expected", testdata_stylish_plain)
-def test_generate_diff_json_plain(file1, file2, format, expected):
+@pytest.mark.parametrize("file1,file2,format,filename", testdata_stylish_plain)
+def test_generate_diff_json_plain(file1, file2, format, filename):
+    with open(filename, "r") as file_diff:
+        expected = file_diff.read()
     assert generate_diff(file1, file2, format) == expected
 
 

@@ -5,11 +5,12 @@ import os
 
 def parse(filepath):
     _, file_extension = os.path.splitext(filepath)
-    if file_extension.lower() == '.json':
+    file_ext = file_extension.lower()
+    if file_ext == '.json':
         return process_json(filepath)
-    if file_extension.lower() == '.yaml' or file_extension.lower() == '.yml':
+    if file_ext == '.yaml' or file_ext == '.yml':
         return process_yaml(filepath)
-    return {}
+    raise ValueError("incorrect file type")
 
 
 def process_json(filepath):
