@@ -22,8 +22,9 @@ def make_string(res, path_text, diff_k):
     if diff_k["diff"] == ONLY_SECOND:
         res.append("Property '{}' was added with value: {}".format(path_text, correct_value(diff_k["value"])))
     if diff_k["diff"] == NOT_EQUAL_VALUES:
-        res.append("Property '{}' was updated. From {} to {}".format(path_text, correct_value(diff_k["value1"]), correct_value(diff_k["value2"])))
-    
+        res.append("Property '{}' was updated. From {} to {}".format(
+            path_text, correct_value(diff_k["value1"]), correct_value(diff_k["value2"])))
+
 
 def make_plain(diff, result, path):
     keys = sorted(diff.keys())
