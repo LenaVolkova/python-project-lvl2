@@ -1,4 +1,3 @@
-from gendiff.formatters.stylish import make_strings
 from gendiff.get_diff import EQUAL, NOT_EQUAL_VALUES, ONLY_FIRST, ONLY_SECOND, NOT_EQUAL_CHILDREN
 
 
